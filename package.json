@@ -1,0 +1,39 @@
+{
+  "name": "scalekit-dryrun",
+  "version": "1.0.0",
+  "description": "Test Scalekit authentication flows without writing code",
+  "main": "dist/index.js",
+  "bin": {
+    "scalekit-dryrun": "./dist/index.js"
+  },
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc && node dist/index.js",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "scalekit",
+    "oauth",
+    "oidc",
+    "sso",
+    "authentication",
+    "pkce"
+  ],
+  "author": "Scalekit",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "open": "^10.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.0"
+  }
+}
