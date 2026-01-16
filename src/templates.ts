@@ -14,6 +14,19 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
     :root {
       --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
       --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --color-bg: #fafafb;
+      --color-surface: #f8f9fb;
+      --color-surface-hover: #f1f3f6;
+      --color-border: #e4e7ec;
+      --color-border-subtle: #eceef2;
+      --color-text: #1a1d24;
+      --color-text-secondary: #5c6370;
+      --color-text-tertiary: #8b919d;
+      --color-primary: #667eea;
+      --color-primary-dark: #5a6fd6;
+      --color-success: #10b981;
+      --color-success-dark: #059669;
+      --focus-ring: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-primary);
     }
     * {
       margin: 0;
@@ -22,15 +35,16 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
     }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, var(--color-primary) 0%, #764ba2 100%);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 24px;
+      line-height: 1.5;
     }
     .container {
-      background: white;
+      background: var(--color-bg);
       border-radius: 16px;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
       max-width: 600px;
@@ -47,10 +61,10 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
       }
     }
     .header {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      background: linear-gradient(135deg, var(--color-success) 0%, var(--color-success-dark) 100%);
       padding: 32px;
       text-align: center;
-      color: white;
+      color: #fff;
     }
     .success-icon {
       width: 64px;
@@ -61,7 +75,6 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
       align-items: center;
       justify-content: center;
       margin: 0 auto 16px;
-      font-size: 32px;
       animation: iconPop 500ms var(--ease-out-expo) 200ms forwards;
       opacity: 0;
       transform: scale(0.5);
@@ -75,7 +88,7 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
     .success-icon svg {
       width: 32px;
       height: 32px;
-      stroke: white;
+      stroke: #fff;
       stroke-width: 3;
       stroke-linecap: round;
       stroke-linejoin: round;
@@ -95,6 +108,7 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
       font-size: 24px;
       font-weight: 600;
       margin-bottom: 8px;
+      line-height: 1.3;
       animation: fadeSlideUp 400ms var(--ease-out-quart) 300ms forwards;
       opacity: 0;
       transform: translateY(10px);
@@ -102,12 +116,13 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
     .header p {
       opacity: 0;
       font-size: 14px;
+      line-height: 1.5;
       animation: fadeSlideUp 400ms var(--ease-out-quart) 400ms forwards;
       transform: translateY(10px);
     }
     @keyframes fadeSlideUp {
       to {
-        opacity: 0.9;
+        opacity: 0.92;
         transform: translateY(0);
       }
     }
@@ -118,8 +133,8 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
       display: flex;
       align-items: center;
       gap: 16px;
-      padding: 20px;
-      background: #f8fafc;
+      padding: 16px;
+      background: var(--color-surface);
       border-radius: 12px;
       margin-bottom: 24px;
       animation: cardIn 500ms var(--ease-out-expo) 450ms forwards;
@@ -133,15 +148,15 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
       }
     }
     .avatar {
-      width: 64px;
-      height: 64px;
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, var(--color-primary) 0%, #764ba2 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
-      font-size: 24px;
+      color: #fff;
+      font-size: 20px;
       font-weight: 600;
       flex-shrink: 0;
     }
@@ -153,12 +168,15 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
     }
     .user-info h2 {
       font-size: 18px;
-      color: #1e293b;
-      margin-bottom: 4px;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 2px;
+      line-height: 1.3;
     }
     .user-info p {
-      color: #64748b;
+      color: var(--color-text-secondary);
       font-size: 14px;
+      line-height: 1.4;
     }
     .claims-section {
       animation: sectionIn 500ms var(--ease-out-expo) 550ms forwards;
@@ -172,39 +190,43 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
       }
     }
     .claims-section h3 {
-      font-size: 14px;
-      color: #64748b;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
       margin-bottom: 12px;
     }
     .claims-grid {
       display: grid;
-      gap: 12px;
+      gap: 8px;
     }
     .claim-item {
       display: flex;
       justify-content: space-between;
+      align-items: flex-start;
       padding: 12px 16px;
-      background: #f8fafc;
+      background: var(--color-surface);
       border-radius: 8px;
       font-size: 14px;
       transition: background-color 200ms var(--ease-out-quart), transform 200ms var(--ease-out-quart);
     }
     .claim-item:hover {
-      background: #f1f5f9;
+      background: var(--color-surface-hover);
       transform: translateX(4px);
     }
     .claim-key {
-      color: #64748b;
+      color: var(--color-text-secondary);
       font-weight: 500;
+      flex-shrink: 0;
     }
     .claim-value {
-      color: #1e293b;
+      color: var(--color-text);
       font-weight: 500;
       text-align: right;
       word-break: break-all;
       max-width: 60%;
+      line-height: 1.4;
     }
     .raw-toggle {
       margin-top: 24px;
@@ -214,19 +236,28 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
       transform: translateY(15px);
     }
     .raw-toggle button {
-      background: none;
-      border: 1px solid #e2e8f0;
-      padding: 10px 20px;
+      font-family: inherit;
+      background: transparent;
+      border: 1px solid var(--color-border);
+      padding: 12px 24px;
       border-radius: 8px;
       cursor: pointer;
       font-size: 14px;
-      color: #64748b;
-      transition: all 200ms var(--ease-out-quart);
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      transition: background-color 200ms var(--ease-out-quart),
+                  border-color 200ms var(--ease-out-quart),
+                  transform 200ms var(--ease-out-quart);
+      min-height: 44px;
     }
     .raw-toggle button:hover {
-      background: #f8fafc;
-      border-color: #cbd5e1;
+      background: var(--color-surface);
+      border-color: var(--color-border-subtle);
       transform: translateY(-1px);
+    }
+    .raw-toggle button:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring);
     }
     .raw-toggle button:active {
       transform: translateY(0);
@@ -245,22 +276,23 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
     }
     .raw-json-inner {
       padding: 16px;
-      background: #1e293b;
+      background: var(--color-text);
       border-radius: 8px;
       overflow-x: auto;
     }
     .raw-json pre {
-      color: #e2e8f0;
-      font-family: 'Monaco', 'Menlo', monospace;
+      color: #e2e5eb;
+      font-family: 'SF Mono', Monaco, Menlo, Consolas, monospace;
       font-size: 12px;
+      line-height: 1.6;
       white-space: pre-wrap;
       word-break: break-all;
     }
     .footer {
       padding: 16px 32px;
-      background: #f8fafc;
+      background: var(--color-surface);
       text-align: center;
-      border-top: 1px solid #e2e8f0;
+      border-top: 1px solid var(--color-border-subtle);
       animation: footerIn 400ms var(--ease-out-quart) 700ms forwards;
       opacity: 0;
     }
@@ -270,16 +302,50 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
       }
     }
     .footer p {
-      color: #94a3b8;
-      font-size: 12px;
+      color: var(--color-text-tertiary);
+      font-size: 13px;
+      line-height: 1.5;
     }
     .footer a {
-      color: #667eea;
+      color: var(--color-primary);
       text-decoration: none;
+      font-weight: 500;
       transition: color 150ms var(--ease-out-quart);
     }
     .footer a:hover {
-      color: #764ba2;
+      color: var(--color-primary-dark);
+    }
+    .footer a:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring);
+      border-radius: 2px;
+    }
+    @media (max-width: 480px) {
+      body {
+        padding: 16px;
+      }
+      .content {
+        padding: 24px;
+      }
+      .user-card {
+        padding: 12px;
+      }
+      .avatar {
+        width: 48px;
+        height: 48px;
+        font-size: 18px;
+      }
+      .user-info h2 {
+        font-size: 16px;
+      }
+      .claim-item {
+        flex-direction: column;
+        gap: 4px;
+      }
+      .claim-value {
+        text-align: left;
+        max-width: 100%;
+      }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -301,42 +367,42 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
 <body>
   <div class="container">
     <div class="header">
-      <div class="success-icon">
-        <svg viewBox="0 0 24 24"><path d="M5 12l5 5L19 7"/></svg>
+      <div class="success-icon" role="img" aria-label="Success">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5L19 7"/></svg>
       </div>
-      <h1>Login Successful!</h1>
+      <h1>Login Successful</h1>
       <p>Authentication completed via Scalekit</p>
     </div>
     <div class="content">
       <div class="user-card">
-        <div class="avatar">
-          ${claims.picture ? `<img src="${escapeHtml(claims.picture)}" alt="Avatar">` : initials}
+        <div class="avatar" role="img" aria-label="User avatar">
+          ${claims.picture ? `<img src="${escapeHtml(claims.picture)}" alt="${escapeHtml(displayName)}'s avatar">` : initials}
         </div>
         <div class="user-info">
           <h2>${escapeHtml(displayName)}</h2>
           ${claims.email ? `<p>${escapeHtml(claims.email)}</p>` : ''}
         </div>
       </div>
-      <div class="claims-section">
-        <h3>ID Token Claims</h3>
-        <div class="claims-grid">
+      <section class="claims-section" aria-labelledby="claims-heading">
+        <h3 id="claims-heading">ID Token Claims</h3>
+        <div class="claims-grid" role="list">
           ${renderClaimsGrid(claims)}
         </div>
-      </div>
+      </section>
       <div class="raw-toggle">
-        <button onclick="toggleRaw()" id="toggleBtn">View Raw Response</button>
+        <button type="button" onclick="toggleRaw()" id="toggleBtn" aria-expanded="false" aria-controls="rawJsonWrapper">View Raw Response</button>
       </div>
-      <div class="raw-json-wrapper" id="rawJsonWrapper">
+      <div class="raw-json-wrapper" id="rawJsonWrapper" aria-hidden="true">
         <div class="raw-json">
           <div class="raw-json-inner">
-            <pre>${escapeHtml(JSON.stringify(rawTokens, null, 2))}</pre>
+            <pre><code>${escapeHtml(JSON.stringify(rawTokens, null, 2))}</code></pre>
           </div>
         </div>
       </div>
     </div>
-    <div class="footer">
-      <p>Powered by <a href="https://scalekit.com" target="_blank">Scalekit</a> | This is a test environment</p>
-    </div>
+    <footer class="footer">
+      <p>Powered by <a href="https://scalekit.com" target="_blank" rel="noopener noreferrer">Scalekit</a></p>
+    </footer>
   </div>
   <script>
     function toggleRaw() {
@@ -344,6 +410,8 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
       const btn = document.getElementById('toggleBtn');
       const isVisible = wrapper.classList.toggle('visible');
       btn.textContent = isVisible ? 'Hide Raw Response' : 'View Raw Response';
+      btn.setAttribute('aria-expanded', isVisible);
+      wrapper.setAttribute('aria-hidden', !isVisible);
     }
   </script>
 </body>
@@ -361,6 +429,18 @@ export function renderError(error: string, details?: string): string {
     :root {
       --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
       --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --color-bg: #fafafb;
+      --color-surface: #f8f9fb;
+      --color-border-subtle: #eceef2;
+      --color-text: #1a1d24;
+      --color-text-tertiary: #8b919d;
+      --color-primary: #667eea;
+      --color-error: #ef4444;
+      --color-error-dark: #dc2626;
+      --color-error-bg: #fef2f2;
+      --color-error-border: #fecaca;
+      --color-error-text: #991b1b;
+      --focus-ring: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-primary);
     }
     * {
       margin: 0;
@@ -369,15 +449,16 @@ export function renderError(error: string, details?: string): string {
     }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, var(--color-primary) 0%, #764ba2 100%);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 24px;
+      line-height: 1.5;
     }
     .container {
-      background: white;
+      background: var(--color-bg);
       border-radius: 16px;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
       max-width: 500px;
@@ -394,10 +475,10 @@ export function renderError(error: string, details?: string): string {
       }
     }
     .header {
-      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      background: linear-gradient(135deg, var(--color-error) 0%, var(--color-error-dark) 100%);
       padding: 32px;
       text-align: center;
-      color: white;
+      color: #fff;
     }
     .error-icon {
       width: 64px;
@@ -408,7 +489,6 @@ export function renderError(error: string, details?: string): string {
       align-items: center;
       justify-content: center;
       margin: 0 auto 16px;
-      font-size: 32px;
       animation: iconShake 500ms var(--ease-out-expo) 300ms forwards;
       opacity: 0;
     }
@@ -423,7 +503,7 @@ export function renderError(error: string, details?: string): string {
     .error-icon svg {
       width: 28px;
       height: 28px;
-      stroke: white;
+      stroke: #fff;
       stroke-width: 3;
       stroke-linecap: round;
       fill: none;
@@ -431,7 +511,7 @@ export function renderError(error: string, details?: string): string {
     .header h1 {
       font-size: 24px;
       font-weight: 600;
-      margin-bottom: 8px;
+      line-height: 1.3;
       animation: fadeIn 400ms var(--ease-out-quart) 400ms forwards;
       opacity: 0;
     }
@@ -453,17 +533,19 @@ export function renderError(error: string, details?: string): string {
     }
     .error-message {
       font-size: 16px;
-      color: #1e293b;
+      color: var(--color-text);
       margin-bottom: 16px;
+      line-height: 1.5;
     }
     .error-details {
       padding: 16px;
-      background: #fef2f2;
-      border: 1px solid #fecaca;
+      background: var(--color-error-bg);
+      border: 1px solid var(--color-error-border);
       border-radius: 8px;
-      font-family: 'Monaco', 'Menlo', monospace;
+      font-family: 'SF Mono', Monaco, Menlo, Consolas, monospace;
       font-size: 12px;
-      color: #991b1b;
+      line-height: 1.6;
+      color: var(--color-error-text);
       text-align: left;
       word-break: break-all;
       white-space: pre-wrap;
@@ -472,33 +554,51 @@ export function renderError(error: string, details?: string): string {
       margin-top: 24px;
     }
     .retry-button a {
-      display: inline-block;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--color-primary) 0%, #764ba2 100%);
+      color: #fff;
       padding: 12px 24px;
       border-radius: 8px;
       text-decoration: none;
       font-weight: 500;
+      font-size: 14px;
+      min-height: 44px;
+      min-width: 120px;
       transition: transform 200ms var(--ease-out-quart), box-shadow 200ms var(--ease-out-quart);
     }
     .retry-button a:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
     }
+    .retry-button a:focus-visible {
+      outline: none;
+      box-shadow: var(--focus-ring);
+    }
     .retry-button a:active {
       transform: translateY(0);
     }
     .footer {
       padding: 16px 32px;
-      background: #f8fafc;
+      background: var(--color-surface);
       text-align: center;
-      border-top: 1px solid #e2e8f0;
+      border-top: 1px solid var(--color-border-subtle);
       animation: fadeIn 400ms var(--ease-out-quart) 600ms forwards;
       opacity: 0;
     }
     .footer p {
-      color: #94a3b8;
-      font-size: 12px;
+      color: var(--color-text-tertiary);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    @media (max-width: 480px) {
+      body {
+        padding: 16px;
+      }
+      .content {
+        padding: 24px;
+      }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -514,23 +614,23 @@ export function renderError(error: string, details?: string): string {
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" role="alert">
     <div class="header">
-      <div class="error-icon">
-        <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      <div class="error-icon" role="img" aria-label="Error">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </div>
       <h1>Authentication Failed</h1>
     </div>
     <div class="content">
       <p class="error-message">${escapeHtml(error)}</p>
-      ${details ? `<div class="error-details">${escapeHtml(details)}</div>` : ''}
+      ${details ? `<div class="error-details" role="region" aria-label="Error details"><code>${escapeHtml(details)}</code></div>` : ''}
       <div class="retry-button">
         <a href="/">Try Again</a>
       </div>
     </div>
-    <div class="footer">
+    <footer class="footer">
       <p>Check your terminal for more details</p>
-    </div>
+    </footer>
   </div>
 </body>
 </html>`;
@@ -547,6 +647,11 @@ export function renderWaiting(): string {
     :root {
       --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
       --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --color-bg: #fafafb;
+      --color-surface: #f1f3f6;
+      --color-text: #1a1d24;
+      --color-text-secondary: #5c6370;
+      --color-primary: #667eea;
     }
     * {
       margin: 0;
@@ -555,20 +660,21 @@ export function renderWaiting(): string {
     }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, var(--color-primary) 0%, #764ba2 100%);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 24px;
+      line-height: 1.5;
     }
     .container {
-      background: white;
+      background: var(--color-bg);
       border-radius: 16px;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
       max-width: 400px;
       width: 100%;
-      padding: 48px;
+      padding: 48px 32px;
       text-align: center;
       animation: containerIn 500ms var(--ease-out-expo) forwards;
       opacity: 0;
@@ -598,7 +704,7 @@ export function renderWaiting(): string {
     .spinner {
       width: 100%;
       height: 100%;
-      border: 3px solid #f1f5f9;
+      border: 3px solid var(--color-surface);
       border-radius: 50%;
       position: absolute;
     }
@@ -606,7 +712,7 @@ export function renderWaiting(): string {
       width: 100%;
       height: 100%;
       border: 3px solid transparent;
-      border-top-color: #667eea;
+      border-top-color: var(--color-primary);
       border-radius: 50%;
       animation: spin 1s var(--ease-out-quart) infinite;
       position: absolute;
@@ -617,7 +723,7 @@ export function renderWaiting(): string {
     .spinner-dot {
       width: 8px;
       height: 8px;
-      background: #667eea;
+      background: var(--color-primary);
       border-radius: 50%;
       position: absolute;
       top: -2px;
@@ -628,8 +734,10 @@ export function renderWaiting(): string {
     }
     h1 {
       font-size: 20px;
-      color: #1e293b;
+      font-weight: 600;
+      color: var(--color-text);
       margin-bottom: 8px;
+      line-height: 1.3;
       animation: textIn 400ms var(--ease-out-quart) 300ms forwards;
       opacity: 0;
       transform: translateY(10px);
@@ -641,8 +749,9 @@ export function renderWaiting(): string {
       }
     }
     p {
-      color: #64748b;
+      color: var(--color-text-secondary);
       font-size: 14px;
+      line-height: 1.5;
       animation: textIn 400ms var(--ease-out-quart) 400ms forwards;
       opacity: 0;
       transform: translateY(10px);
@@ -659,6 +768,14 @@ export function renderWaiting(): string {
     @keyframes dotPulse {
       0%, 60%, 100% { opacity: 0; }
       30% { opacity: 1; }
+    }
+    @media (max-width: 480px) {
+      body {
+        padding: 16px;
+      }
+      .container {
+        padding: 40px 24px;
+      }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -680,15 +797,15 @@ export function renderWaiting(): string {
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="spinner-wrapper">
+  <main class="container" role="status" aria-live="polite">
+    <div class="spinner-wrapper" aria-hidden="true">
       <div class="spinner"></div>
       <div class="spinner-arc"></div>
       <div class="spinner-dot"></div>
     </div>
-    <h1>Redirecting to Login<span class="dots"><span>.</span><span>.</span><span>.</span></span></h1>
+    <h1>Redirecting to Login<span class="dots" aria-hidden="true"><span>.</span><span>.</span><span>.</span></span></h1>
     <p>Please complete authentication in your browser</p>
-  </div>
+  </main>
 </body>
 </html>`;
 }
@@ -745,7 +862,7 @@ function renderClaimItem(key: string, value: unknown): string {
     displayValue = JSON.stringify(value);
   }
 
-  return `<div class="claim-item">
+  return `<div class="claim-item" role="listitem">
     <span class="claim-key">${escapeHtml(key)}</span>
     <span class="claim-value">${escapeHtml(displayValue)}</span>
   </div>`;
