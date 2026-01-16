@@ -11,6 +11,10 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Scalekit Dryrun - Login Successful</title>
   <style>
+    :root {
+      --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
     * {
       margin: 0;
       padding: 0;
@@ -32,6 +36,15 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
       max-width: 600px;
       width: 100%;
       overflow: hidden;
+      animation: containerIn 600ms var(--ease-out-expo) forwards;
+      opacity: 0;
+      transform: translateY(20px) scale(0.98);
+    }
+    @keyframes containerIn {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
     .header {
       background: linear-gradient(135deg, #10b981 0%, #059669 100%);
@@ -49,15 +62,54 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
       justify-content: center;
       margin: 0 auto 16px;
       font-size: 32px;
+      animation: iconPop 500ms var(--ease-out-expo) 200ms forwards;
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    @keyframes iconPop {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    .success-icon svg {
+      width: 32px;
+      height: 32px;
+      stroke: white;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+    .success-icon svg path {
+      stroke-dasharray: 30;
+      stroke-dashoffset: 30;
+      animation: checkDraw 400ms var(--ease-out-quart) 400ms forwards;
+    }
+    @keyframes checkDraw {
+      to {
+        stroke-dashoffset: 0;
+      }
     }
     .header h1 {
       font-size: 24px;
       font-weight: 600;
       margin-bottom: 8px;
+      animation: fadeSlideUp 400ms var(--ease-out-quart) 300ms forwards;
+      opacity: 0;
+      transform: translateY(10px);
     }
     .header p {
-      opacity: 0.9;
+      opacity: 0;
       font-size: 14px;
+      animation: fadeSlideUp 400ms var(--ease-out-quart) 400ms forwards;
+      transform: translateY(10px);
+    }
+    @keyframes fadeSlideUp {
+      to {
+        opacity: 0.9;
+        transform: translateY(0);
+      }
     }
     .content {
       padding: 32px;
@@ -70,6 +122,15 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
       background: #f8fafc;
       border-radius: 12px;
       margin-bottom: 24px;
+      animation: cardIn 500ms var(--ease-out-expo) 450ms forwards;
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    @keyframes cardIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
     .avatar {
       width: 64px;
@@ -99,6 +160,17 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
       color: #64748b;
       font-size: 14px;
     }
+    .claims-section {
+      animation: sectionIn 500ms var(--ease-out-expo) 550ms forwards;
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    @keyframes sectionIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
     .claims-section h3 {
       font-size: 14px;
       color: #64748b;
@@ -117,6 +189,11 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
       background: #f8fafc;
       border-radius: 8px;
       font-size: 14px;
+      transition: background-color 200ms var(--ease-out-quart), transform 200ms var(--ease-out-quart);
+    }
+    .claim-item:hover {
+      background: #f1f5f9;
+      transform: translateX(4px);
     }
     .claim-key {
       color: #64748b;
@@ -132,6 +209,9 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
     .raw-toggle {
       margin-top: 24px;
       text-align: center;
+      animation: sectionIn 500ms var(--ease-out-expo) 650ms forwards;
+      opacity: 0;
+      transform: translateY(15px);
     }
     .raw-toggle button {
       background: none;
@@ -141,22 +221,33 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
       cursor: pointer;
       font-size: 14px;
       color: #64748b;
-      transition: all 0.2s;
+      transition: all 200ms var(--ease-out-quart);
     }
     .raw-toggle button:hover {
       background: #f8fafc;
       border-color: #cbd5e1;
+      transform: translateY(-1px);
+    }
+    .raw-toggle button:active {
+      transform: translateY(0);
+    }
+    .raw-json-wrapper {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 350ms var(--ease-out-expo);
+      margin-top: 16px;
+    }
+    .raw-json-wrapper.visible {
+      grid-template-rows: 1fr;
     }
     .raw-json {
-      display: none;
-      margin-top: 16px;
+      overflow: hidden;
+    }
+    .raw-json-inner {
       padding: 16px;
       background: #1e293b;
       border-radius: 8px;
       overflow-x: auto;
-    }
-    .raw-json.visible {
-      display: block;
     }
     .raw-json pre {
       color: #e2e8f0;
@@ -170,6 +261,13 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
       background: #f8fafc;
       text-align: center;
       border-top: 1px solid #e2e8f0;
+      animation: footerIn 400ms var(--ease-out-quart) 700ms forwards;
+      opacity: 0;
+    }
+    @keyframes footerIn {
+      to {
+        opacity: 1;
+      }
     }
     .footer p {
       color: #94a3b8;
@@ -178,13 +276,34 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
     .footer a {
       color: #667eea;
       text-decoration: none;
+      transition: color 150ms var(--ease-out-quart);
+    }
+    .footer a:hover {
+      color: #764ba2;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .container, .success-icon, .header h1, .header p,
+      .user-card, .claims-section, .raw-toggle, .footer {
+        opacity: 1;
+        transform: none;
+      }
+      .success-icon svg path {
+        stroke-dashoffset: 0;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="header">
-      <div class="success-icon">&#10003;</div>
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24"><path d="M5 12l5 5L19 7"/></svg>
+      </div>
       <h1>Login Successful!</h1>
       <p>Authentication completed via Scalekit</p>
     </div>
@@ -205,10 +324,14 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
         </div>
       </div>
       <div class="raw-toggle">
-        <button onclick="toggleRaw()">View Raw Response</button>
+        <button onclick="toggleRaw()" id="toggleBtn">View Raw Response</button>
       </div>
-      <div class="raw-json" id="rawJson">
-        <pre>${escapeHtml(JSON.stringify(rawTokens, null, 2))}</pre>
+      <div class="raw-json-wrapper" id="rawJsonWrapper">
+        <div class="raw-json">
+          <div class="raw-json-inner">
+            <pre>${escapeHtml(JSON.stringify(rawTokens, null, 2))}</pre>
+          </div>
+        </div>
       </div>
     </div>
     <div class="footer">
@@ -217,8 +340,10 @@ export function renderDashboard(claims: IDTokenClaims, rawTokens: object): strin
   </div>
   <script>
     function toggleRaw() {
-      const rawJson = document.getElementById('rawJson');
-      rawJson.classList.toggle('visible');
+      const wrapper = document.getElementById('rawJsonWrapper');
+      const btn = document.getElementById('toggleBtn');
+      const isVisible = wrapper.classList.toggle('visible');
+      btn.textContent = isVisible ? 'Hide Raw Response' : 'View Raw Response';
     }
   </script>
 </body>
@@ -233,6 +358,10 @@ export function renderError(error: string, details?: string): string {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Scalekit Dryrun - Error</title>
   <style>
+    :root {
+      --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
     * {
       margin: 0;
       padding: 0;
@@ -254,6 +383,15 @@ export function renderError(error: string, details?: string): string {
       max-width: 500px;
       width: 100%;
       overflow: hidden;
+      animation: containerIn 600ms var(--ease-out-expo) forwards;
+      opacity: 0;
+      transform: translateY(20px) scale(0.98);
+    }
+    @keyframes containerIn {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
     .header {
       background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
@@ -271,15 +409,47 @@ export function renderError(error: string, details?: string): string {
       justify-content: center;
       margin: 0 auto 16px;
       font-size: 32px;
+      animation: iconShake 500ms var(--ease-out-expo) 300ms forwards;
+      opacity: 0;
+    }
+    @keyframes iconShake {
+      0% { opacity: 0; transform: translateX(-8px); }
+      20% { opacity: 1; transform: translateX(6px); }
+      40% { transform: translateX(-4px); }
+      60% { transform: translateX(2px); }
+      80% { transform: translateX(-1px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+    .error-icon svg {
+      width: 28px;
+      height: 28px;
+      stroke: white;
+      stroke-width: 3;
+      stroke-linecap: round;
+      fill: none;
     }
     .header h1 {
       font-size: 24px;
       font-weight: 600;
       margin-bottom: 8px;
+      animation: fadeIn 400ms var(--ease-out-quart) 400ms forwards;
+      opacity: 0;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
     }
     .content {
       padding: 32px;
       text-align: center;
+      animation: contentIn 500ms var(--ease-out-expo) 450ms forwards;
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    @keyframes contentIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
     .error-message {
       font-size: 16px;
@@ -309,27 +479,46 @@ export function renderError(error: string, details?: string): string {
       border-radius: 8px;
       text-decoration: none;
       font-weight: 500;
-      transition: transform 0.2s;
+      transition: transform 200ms var(--ease-out-quart), box-shadow 200ms var(--ease-out-quart);
     }
     .retry-button a:hover {
       transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+    .retry-button a:active {
+      transform: translateY(0);
     }
     .footer {
       padding: 16px 32px;
       background: #f8fafc;
       text-align: center;
       border-top: 1px solid #e2e8f0;
+      animation: fadeIn 400ms var(--ease-out-quart) 600ms forwards;
+      opacity: 0;
     }
     .footer p {
       color: #94a3b8;
       font-size: 12px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .container, .error-icon, .header h1, .content, .footer {
+        opacity: 1;
+        transform: none;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="header">
-      <div class="error-icon">&#10007;</div>
+      <div class="error-icon">
+        <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </div>
       <h1>Authentication Failed</h1>
     </div>
     <div class="content">
@@ -355,6 +544,10 @@ export function renderWaiting(): string {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Scalekit Dryrun - Starting...</title>
   <style>
+    :root {
+      --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
     * {
       margin: 0;
       padding: 0;
@@ -377,34 +570,123 @@ export function renderWaiting(): string {
       width: 100%;
       padding: 48px;
       text-align: center;
+      animation: containerIn 500ms var(--ease-out-expo) forwards;
+      opacity: 0;
+      transform: translateY(20px) scale(0.98);
+    }
+    @keyframes containerIn {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    .spinner-wrapper {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 24px;
+      position: relative;
+      animation: spinnerIn 400ms var(--ease-out-expo) 200ms forwards;
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    @keyframes spinnerIn {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
     .spinner {
-      width: 48px;
-      height: 48px;
-      border: 4px solid #e2e8f0;
+      width: 100%;
+      height: 100%;
+      border: 3px solid #f1f5f9;
+      border-radius: 50%;
+      position: absolute;
+    }
+    .spinner-arc {
+      width: 100%;
+      height: 100%;
+      border: 3px solid transparent;
       border-top-color: #667eea;
       border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 24px;
+      animation: spin 1s var(--ease-out-quart) infinite;
+      position: absolute;
     }
     @keyframes spin {
       to { transform: rotate(360deg); }
+    }
+    .spinner-dot {
+      width: 8px;
+      height: 8px;
+      background: #667eea;
+      border-radius: 50%;
+      position: absolute;
+      top: -2px;
+      left: 50%;
+      margin-left: -4px;
+      animation: spin 1s var(--ease-out-quart) infinite;
+      transform-origin: 4px 30px;
     }
     h1 {
       font-size: 20px;
       color: #1e293b;
       margin-bottom: 8px;
+      animation: textIn 400ms var(--ease-out-quart) 300ms forwards;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    @keyframes textIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
     p {
       color: #64748b;
       font-size: 14px;
+      animation: textIn 400ms var(--ease-out-quart) 400ms forwards;
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    .dots {
+      display: inline-block;
+    }
+    .dots span {
+      animation: dotPulse 1.4s infinite;
+      opacity: 0;
+    }
+    .dots span:nth-child(2) { animation-delay: 0.2s; }
+    .dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes dotPulse {
+      0%, 60%, 100% { opacity: 0; }
+      30% { opacity: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .container, .spinner-wrapper, h1, p {
+        opacity: 1;
+        transform: none;
+      }
+      .spinner-arc, .spinner-dot {
+        animation: spin 2s linear infinite !important;
+      }
+      .dots span {
+        opacity: 1;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="spinner"></div>
-    <h1>Redirecting to Login...</h1>
+    <div class="spinner-wrapper">
+      <div class="spinner"></div>
+      <div class="spinner-arc"></div>
+      <div class="spinner-dot"></div>
+    </div>
+    <h1>Redirecting to Login<span class="dots"><span>.</span><span>.</span><span>.</span></span></h1>
     <p>Please complete authentication in your browser</p>
   </div>
 </body>
