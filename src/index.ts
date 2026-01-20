@@ -21,21 +21,21 @@ function printUsage(): void {
 Scalekit Dryrun - Test authentication flows without code
 
 Usage:
-  npx scalekit-dryrun --env_url=<url> --client_id=<id> --mode=<sso|fsa> [--organization_id=<id>]
+  npx @scalekit-sdk/dryrun --env_url=<url> --client_id=<id> [--mode=<sso|fsa>] [--organization_id=<id>]
 
 Options:
   --env_url         Your Scalekit environment URL (e.g., env-xxxxx.scalekit.com)
   --client_id       Your OAuth client ID
-  --mode            Authentication mode: 'sso' for enterprise SSO, 'fsa' for full-stack auth
+  --mode            Authentication mode: 'sso' for enterprise SSO, 'fsa' for full-stack auth (default: fsa)
   --organization_id Required for SSO mode - the organization ID to authenticate against
   --help            Show this help message
 
 Examples:
-  # Full-stack authentication
-  npx scalekit-dryrun --env_url=env-abc123.scalekit.com --client_id=skc_xxx --mode=fsa
+  # Full-stack authentication (default mode)
+  npx @scalekit-sdk/dryrun --env_url=env-abc123.scalekit.com --client_id=skc_xxx
 
   # Enterprise SSO for a specific organization
-  npx scalekit-dryrun --env_url=env-abc123.scalekit.com --client_id=skc_xxx --mode=sso --organization_id=org_xxx
+  npx @scalekit-sdk/dryrun --env_url=env-abc123.scalekit.com --client_id=skc_xxx --mode=sso --organization_id=org_xxx
 `);
 }
 
@@ -69,13 +69,14 @@ function parseOptions(): CLIOptions | null {
       process.exit(1);
     }
 
-    if (!values.mode || !['sso', 'fsa'].includes(values.mode)) {
+    const mode = values.mode || 'fsa';
+    if (!['sso', 'fsa'].includes(mode)) {
       console.error('Error: --mode must be either "sso" or "fsa"');
       printUsage();
       process.exit(1);
     }
 
-    if (values.mode === 'sso' && !values.organization_id) {
+    if (mode === 'sso' && !values.organization_id) {
       console.error('Error: --organization_id is required when mode is "sso"');
       printUsage();
       process.exit(1);
@@ -84,7 +85,7 @@ function parseOptions(): CLIOptions | null {
     return {
       env_url: values.env_url,
       client_id: values.client_id,
-      mode: values.mode as 'sso' | 'fsa',
+      mode: mode as 'sso' | 'fsa',
       organization_id: values.organization_id,
     };
   } catch (err) {

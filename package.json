@@ -1,6 +1,6 @@
 {
   "name": "@scalekit-sdk/dryrun",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Test Scalekit authentication flows without writing code",
   "main": "dist/index.js",
   "bin": {

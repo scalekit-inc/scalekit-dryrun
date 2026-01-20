@@ -22,7 +22,7 @@ Before using this tool, add the redirect URI to your Scalekit application:
 ## Usage
 
 ```bash
-npx scalekit-dryrun --env_url=<url> --client_id=<id> --mode=<sso|fsa> [--organization_id=<id>]
+npx @scalekit-sdk/dryrun --env_url=<url> --client_id=<id> [--mode=<sso|fsa>] [--organization_id=<id>]
 ```
 
 ### Options
@@ -31,7 +31,7 @@ npx scalekit-dryrun --env_url=<url> --client_id=<id> --mode=<sso|fsa> [--organiz
 |--------|----------|-------------|
 | `--env_url` | Yes | Your Scalekit environment URL (e.g., `env-xxxxx.scalekit.cloud`) |
 | `--client_id` | Yes | Your OAuth client ID (starts with `skc_`) |
-| `--mode` | Yes | `fsa` for full-stack authentication, `sso` for enterprise SSO |
+| `--mode` | No | `fsa` for full-stack authentication, `sso` for enterprise SSO (default: `fsa`) |
 | `--organization_id` | SSO only | Required when mode is `sso` - the organization ID to authenticate against |
 | `--help` | No | Show help message |
 
@@ -42,10 +42,9 @@ npx scalekit-dryrun --env_url=<url> --client_id=<id> --mode=<sso|fsa> [--organiz
 Test the complete authentication flow managed by Scalekit:
 
 ```bash
-npx scalekit-dryrun \
+npx @scalekit-sdk/dryrun \
   --env_url=env-abc123.scalekit.cloud \
-  --client_id=skc_12345678901234567 \
-  --mode=fsa
+  --client_id=skc_12345678901234567
 ```
 
 **Enterprise SSO**
@@ -53,7 +52,7 @@ npx scalekit-dryrun \
 Test SSO authentication for a specific organization:
 
 ```bash
-npx scalekit-dryrun \
+npx @scalekit-sdk/dryrun \
   --env_url=env-abc123.scalekit.cloud \
   --client_id=skc_12345678901234567 \
   --mode=sso \
