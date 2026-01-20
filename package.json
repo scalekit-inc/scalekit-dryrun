@@ -1,5 +1,5 @@
 {
-  "name": "scalekit-dryrun",
+  "name": "@scalekit-sdk/dryrun",
   "version": "1.0.0",
   "description": "Test Scalekit authentication flows without writing code",
   "main": "dist/index.js",
@@ -10,6 +10,14 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scalekit-inc/scalekit-dryrun.git"
+  },
+  "homepage": "https://github.com/scalekit-inc/scalekit-dryrun#readme",
+  "bugs": {
+    "url": "https://github.com/scalekit-inc/scalekit-dryrun/issues"
+  },
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
