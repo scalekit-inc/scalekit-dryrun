@@ -63,7 +63,7 @@ npx @scalekit-sdk/dryrun \
 
 1. The CLI fetches your OIDC configuration from Scalekit
 2. Generates secure PKCE parameters (code verifier and challenge)
-3. Starts a local server on port `12456`
+3. Starts a local server on port `8080`
 4. Opens your browser to begin authentication
 5. After successful login, displays a dashboard with your user information
 
@@ -85,9 +85,9 @@ Ensure `http://localhost:12456/auth/callback` is added as a redirect URI in your
 
 Verify your `--client_id` matches the one in your Scalekit dashboard.
 
-### Port 12456 already in use
+### Port 8080 already in use
 
-Another process is using port 12456. Stop that process or wait for it to complete.
+Another process is using port 8080. Stop that process or wait for it to complete.
 
 ### Organization not found (SSO mode)
 
@@ -105,6 +105,7 @@ This tool is designed for **testing purposes only**. It:
 ## Support
 
 - [Scalekit Documentation](https://docs.scalekit.com)
+- [Scalekit Community](https://join.slack.com/t/scalekit-community/shared_invite/zt-3gsxwr4hc-0tvhwT2b_qgVSIZQBQCWRw)
 - [Scalekit Dashboard](https://app.scalekit.com)
 - [GitHub Issues](https://github.com/scalekit-inc/scalekit-dryrun/issues)
 

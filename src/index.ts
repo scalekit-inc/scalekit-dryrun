@@ -5,7 +5,7 @@ import { discoverOIDCConfiguration } from './oidc.js';
 import { generateCodeVerifier, generateCodeChallenge, generateState } from './pkce.js';
 import { createServer } from './server.js';
 
-const PORT = 12456;
+const PORT = 8080;
 const REDIRECT_URI = `http://localhost:${PORT}/auth/callback`;
 const SCOPES = 'openid email profile offline_access';
 
