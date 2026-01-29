@@ -8,18 +8,22 @@ This CLI tool creates a complete PKCE-based OAuth flow, letting you verify your 
 
 - Node.js 20 or higher
 - A Scalekit account with an environment configured
-- `http://localhost:12456/auth/callback` added as a redirect URI in your Scalekit dashboard
+- A redirect URI registered in the Scalekit Dashboard (see Setup below)
 
 ## Setup
 
-Before using this tool, add the redirect URI to your Scalekit application:
+Before running the tool, register the redirect URI in the Scalekit Dashboard:
 
-1. Go to your [Scalekit Dashboard](https://app.scalekit.com)
-2. Navigate to **API Config** > **Redirect URIs**
-3. Add `http://localhost:12456/auth/callback`
+1. Go to the [Scalekit Dashboard](https://app.scalekit.com)
+2. Navigate to **Authentication** > **Redirect URIs**
+3. Add `http://localhost:8080/auth/callback`
 4. Save changes
 
+You must complete this step before proceeding to run the command.
+
 ## Usage
+
+**Before running the command:** Ensure you have registered `http://localhost:8080/auth/callback` as a redirect URI in the [Scalekit Dashboard](https://app.scalekit.com) under **Authentication** > **Redirect URIs**.
 
 ```bash
 npx @scalekit-sdk/dryrun --env_url=<url> --client_id=<id> [--mode=<sso|fsa>] [--organization_id=<id>]
@@ -79,7 +83,7 @@ After successful authentication, you'll see:
 
 ### "redirect_uri mismatch" error
 
-Ensure `http://localhost:12456/auth/callback` is added as a redirect URI in your Scalekit dashboard.
+Ensure `http://localhost:8080/auth/callback` is added as a redirect URI in the Scalekit Dashboard (app.scalekit.com) under **Authentication** > **Redirect URIs**.
 
 ### "Invalid client_id" error
 
