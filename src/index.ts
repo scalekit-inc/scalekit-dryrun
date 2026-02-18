@@ -82,8 +82,21 @@ function parseOptions(): CLIOptions | null {
       process.exit(1);
     }
 
+    // Normalize env_url: reject http://, accept https:// or no protocol
+    let normalizedEnvUrl = values.env_url.trim();
+
+    // Reject http:// URLs
+    if (normalizedEnvUrl.toLowerCase().startsWith('http://')) {
+      console.error('Error: --env_url cannot use http://. Use https:// or omit the protocol.');
+      printUsage();
+      process.exit(1);
+    }
+
+    // Remove https:// prefix if present
+    normalizedEnvUrl = normalizedEnvUrl.replace(/^https:\/\//i, '');
+
     return {
-      env_url: values.env_url,
+      env_url: normalizedEnvUrl,
       client_id: values.client_id,
       mode: mode as 'sso' | 'fsa',
       organization_id: values.organization_id,
